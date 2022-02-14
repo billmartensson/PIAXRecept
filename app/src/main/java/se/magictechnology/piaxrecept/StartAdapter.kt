@@ -15,6 +15,7 @@ class StartAdapter() : RecyclerView.Adapter<StartViewHolder>() {
     }
 
     override fun getItemCount(): Int {
+        //return startfrag.model.recipes.value!!.size
         return 5
     }
 
