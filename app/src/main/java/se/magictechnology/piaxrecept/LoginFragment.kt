@@ -28,7 +28,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.loginButton.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragContainer, StartFragment()).commit()
+
         }
 
         binding.registerButton.setOnClickListener {

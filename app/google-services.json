@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "636941009860",
+    "firebase_url": "https://piax-acf23-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "piax-acf23",
+    "storage_bucket": "piax-acf23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636941009860:android:aa2a9d626a102b0fe21a91",
+        "android_client_info": {
+          "package_name": "se.magictechnology.piaxrecept"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636941009860-ie9u9t011g944nfe9ju6r0up4q7fuv20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-MhuFFeeBWnurLwBGBv9g74Q0c-FbIo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636941009860-ie9u9t011g944nfe9ju6r0up4q7fuv20.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "636941009860-2q3o26kp8ef7s47f0gq172672gvd24nl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "se.magictechnology.piaxanalys"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636941009860:android:1da65478a49efb19e21a91",
+        "android_client_info": {
+          "package_name": "se.magictechnology.piaxshopping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636941009860-ie9u9t011g944nfe9ju6r0up4q7fuv20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-MhuFFeeBWnurLwBGBv9g74Q0c-FbIo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636941009860-ie9u9t011g944nfe9ju6r0up4q7fuv20.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "636941009860-2q3o26kp8ef7s47f0gq172672gvd24nl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "se.magictechnology.piaxanalys"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
