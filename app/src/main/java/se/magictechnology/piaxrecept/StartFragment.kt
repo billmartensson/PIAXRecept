@@ -26,7 +26,7 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addRecipeButton.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().add(R.id.fragContainer, RecipeDetailFragment()).commit()
+            requireActivity().supportFragmentManager.beginTransaction().add(R.id.fragContainer, RecipeDetailFragment()).addToBackStack(null).commit()
 
         }
     }
