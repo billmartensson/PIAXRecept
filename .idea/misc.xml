@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_recipe_detail.xml" value="0.36041666666666666" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.36041666666666666" />
+        <entry key="app/src/main/res/layout/startrecipe_item.xml" value="0.36041666666666666" />
       </map>
     </option>
   </component>
