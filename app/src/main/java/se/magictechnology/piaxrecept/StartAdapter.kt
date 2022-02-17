@@ -3,6 +3,7 @@ package se.magictechnology.piaxrecept
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class StartAdapter() : RecyclerView.Adapter<StartViewHolder>() {
@@ -15,14 +16,21 @@ class StartAdapter() : RecyclerView.Adapter<StartViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        //return startfrag.model.recipes.value!!.size
-        return 5
+
+        startfrag.model.recipes.value?.let {
+            return it.size
+        }
+        return 0
     }
 
     override fun onBindViewHolder(holder: StartViewHolder, position: Int) {
 
+        val rowrecipe = startfrag.model.recipes.value!![position]
+
+        holder.recipetitleTV.text = rowrecipe.title
+
         holder.itemView.setOnClickListener {
-            startfrag.goRecipe()
+            startfrag.goRecipe(rowrecipe)
         }
 
     }
@@ -31,6 +39,6 @@ class StartAdapter() : RecyclerView.Adapter<StartViewHolder>() {
 
 class StartViewHolder (view: View) : RecyclerView.ViewHolder(view) {
 
-
+    val recipetitleTV = view.findViewById<TextView>(R.id.recipeItemTitleTextview)
 
 }

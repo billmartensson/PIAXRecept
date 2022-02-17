@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 class RecipeViewModel : ViewModel() {
@@ -12,10 +14,14 @@ class RecipeViewModel : ViewModel() {
         MutableLiveData<List<Recipe>>()
     }
 
-
     val loginOK: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
+
+    val saveRecipeStatus: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
 
     fun checkLogin()
     {
@@ -60,12 +66,45 @@ class RecipeViewModel : ViewModel() {
 
     fun loadRecipes()
     {
-        // FB HÄMTA
-        //recipes.value = XXXXXXXX
+        val database = Firebase.database.reference
+        val auth = Firebase.auth
+
+        database.child("recipeapp").child(auth.currentUser!!.uid).child("recipes").get().addOnSuccessListener {
+
+            val temprecipelist = mutableListOf<Recipe>()
+            for (snap in it.children) {
+                val temprecipe = snap.getValue<Recipe>()!!
+                temprecipe.fbid = snap.key
+                temprecipelist.add(temprecipe)
+            }
+            recipes.value = temprecipelist
+
+        }.addOnFailureListener {
+
+        }
+
+
     }
 
-    fun saveRecipe()
+    fun saveRecipe(reci : Recipe)
     {
-        // SPARA TILL FB
+        val database = Firebase.database.reference
+        val auth = Firebase.auth
+
+        val recipepath = database.child("recipeapp").child(auth.currentUser!!.uid).child("recipes")
+
+        if(reci.fbid == null)
+        {
+            // NYTT RECEPT
+            recipepath.push().setValue(reci)
+        } else {
+            // SPARA ÖVER GAMMALT RECEPT
+            recipepath.child(reci.fbid!!).setValue(reci)
+        }
+
+        saveRecipeStatus.value = true
+
+        loadRecipes()
+
     }
 }
