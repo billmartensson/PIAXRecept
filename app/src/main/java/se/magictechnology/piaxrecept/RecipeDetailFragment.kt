@@ -34,12 +34,14 @@ class RecipeDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recipeTitleEdittext.setText(currentrecipe.title)
+        binding.recipeDescriptionEdittext.setText(currentrecipe.description)
 
         binding.recipeSaveButton.setOnClickListener {
 
             // TODO: Validera så inmatning är korrekt
 
             currentrecipe.title = binding.recipeTitleEdittext.text.toString()
+            currentrecipe.description = binding.recipeDescriptionEdittext.text.toString()
 
             model.saveRecipe(currentrecipe)
 
@@ -47,9 +49,13 @@ class RecipeDetailFragment : Fragment() {
 
         val savestatusobserver = Observer<Boolean> {
             Log.i("PIAXDEBUG", "SAVE STATUS NÅGOT HÄNDE")
-            requireActivity().supportFragmentManager.popBackStack()
+            if(it == true)
+            {
+                Log.i("PIAXDEBUG", "NU STÄNG FRAG " + currentrecipe.title)
+                requireActivity().supportFragmentManager.popBackStack()
+            }
         }
-        model.saveRecipeStatus.observe(requireActivity(), savestatusobserver)
+        model.saveRecipeStatus.observe(viewLifecycleOwner, savestatusobserver)
 
     }
 

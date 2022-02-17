@@ -46,7 +46,7 @@ class StartFragment : Fragment() {
             startadapter.notifyDataSetChanged()
         }
 
-        model.recipes.observe(requireActivity(), recipeobserver)
+        model.recipes.observe(viewLifecycleOwner, recipeobserver)
 
         model.loadRecipes()
 
