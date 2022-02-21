@@ -47,6 +47,11 @@ class RecipeDetailFragment : Fragment() {
 
         }
 
+        binding.addimageButton.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().add(R.id.fragContainer, CameraFragment()).addToBackStack(null).commit()
+        }
+
+
         val savestatusobserver = Observer<Boolean> {
             Log.i("PIAXDEBUG", "SAVE STATUS NÅGOT HÄNDE")
             if(it == true)
