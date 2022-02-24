@@ -14,10 +14,26 @@ import com.google.firebase.ktx.Firebase
 BUGG:
 ------Klicka igenom recipe detail på recept i listan bakom
 Vid nytt recept välja bild innan spara ger krasch
-Gå in på recept utan bild visar gammal bild från tidigare valt recept
+------Gå in på recept utan bild visar gammal bild från tidigare valt recept
 
 FIX:
 -------Skala ner bild innan uppladdning
+
+by ActivityViewModels
+
+        ACTIVITY
+            |
+           RECIPEVIEWMODEL
+             |          |
+           START      DETAIL
+
+by viewModel
+
+        ACTIVITY
+            |
+           RECIPEVIEWMODEL          RECIPEDETAILVIEWMODEL
+             |                              |
+           START                          DETAIL
 
 
  */

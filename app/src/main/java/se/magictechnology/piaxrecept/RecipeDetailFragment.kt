@@ -14,6 +14,7 @@ import android.widget.ImageView
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -25,9 +26,11 @@ class RecipeDetailFragment : Fragment() {
     private var _binding : FragmentRecipeDetailBinding? = null
     private val binding get() = _binding!!
 
-    val model : RecipeViewModel by activityViewModels()
+    val model : RecipeDetailViewModel by viewModels()
 
     var currentrecipe = Recipe()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -23,6 +23,7 @@ import androidx.camera.video.VideoCapture
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -45,7 +46,7 @@ class CameraFragment : Fragment() {
 
     var currentrecipe = Recipe()
 
-    val model : RecipeViewModel by activityViewModels()
+    val model : RecipeDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
