@@ -1,5 +1,6 @@
 package se.magictechnology.piaxrecept
 
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.AuthResult
@@ -8,6 +9,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
 
 enum class LoginResult {
     LOGINOK, LOGINFAIL, REGISTERFAIL
@@ -128,5 +131,25 @@ class RecipeViewModel : ViewModel() {
 
         loadRecipes()
 
+    }
+
+    fun uploadImage(imgbitmap : Bitmap, imgrecipe : Recipe)
+    {
+        val storage = Firebase.storage.reference
+
+        val recipeimagepath = storage.child("recipe").child(imgrecipe.fbid!!)
+
+        val baos = ByteArrayOutputStream()
+        imgbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val data = baos.toByteArray()
+
+        var uploadTask = recipeimagepath.putBytes(data)
+        uploadTask.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener { taskSnapshot ->
+            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            // ...
+            //requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 }

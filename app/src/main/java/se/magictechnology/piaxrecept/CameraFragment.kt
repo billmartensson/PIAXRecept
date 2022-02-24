@@ -22,6 +22,7 @@ import androidx.camera.video.Recording
 import androidx.camera.video.VideoCapture
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import se.magictechnology.piaxrecept.databinding.FragmentCameraBinding
@@ -41,6 +42,10 @@ class CameraFragment : Fragment() {
 
     private var imageCapture: ImageCapture? = null
     private lateinit var cameraExecutor: ExecutorService
+
+    var currentrecipe = Recipe()
+
+    val model : RecipeViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,22 +152,7 @@ class CameraFragment : Fragment() {
                 super.onCaptureSuccess(image)
                 val bitmap = imageProxyToBitmap(image)
 
-                val storage = Firebase.storage.reference
-
-                val recipeimagepath = storage.child("recipe").child("RECID")
-
-                val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                val data = baos.toByteArray()
-
-                var uploadTask = recipeimagepath.putBytes(data)
-                uploadTask.addOnFailureListener {
-                    // Handle unsuccessful uploads
-                }.addOnSuccessListener { taskSnapshot ->
-                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                    // ...
-                    requireActivity().supportFragmentManager.popBackStack()
-                }
+                model.uploadImage(bitmap, currentrecipe)
 
                 /*
                 runOnUiThread {
