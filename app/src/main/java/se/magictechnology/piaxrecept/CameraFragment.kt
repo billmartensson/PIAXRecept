@@ -23,6 +23,7 @@ import androidx.camera.video.VideoCapture
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import se.magictechnology.piaxrecept.databinding.FragmentCameraBinding
@@ -30,7 +31,6 @@ import se.magictechnology.piaxrecept.databinding.FragmentRecipeDetailBinding
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -91,6 +91,11 @@ class CameraFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val imageobserver = Observer<Bitmap> {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
+        model.imageResult.observe(viewLifecycleOwner, imageobserver)
 
         if (allPermissionsGranted()) {
             startCamera()

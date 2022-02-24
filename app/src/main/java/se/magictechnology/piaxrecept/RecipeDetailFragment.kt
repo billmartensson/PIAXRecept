@@ -1,6 +1,7 @@
 package se.magictechnology.piaxrecept
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,6 +15,8 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import se.magictechnology.piaxrecept.databinding.FragmentRecipeDetailBinding
 import se.magictechnology.piaxrecept.databinding.FragmentStartBinding
 
@@ -39,6 +42,15 @@ class RecipeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val imageobserver = Observer<Bitmap> {
+            binding.recipeDetailimageView.setImageBitmap(it)
+        }
+        model.imageResult.observe(viewLifecycleOwner, imageobserver)
+
+        model.downloadImage(currentrecipe)
+
+
+
         binding.recipeTitleEdittext.setText(currentrecipe.title)
         binding.recipeDescriptionEdittext.setText(currentrecipe.description)
 
@@ -57,7 +69,6 @@ class RecipeDetailFragment : Fragment() {
             //binding.recipeDetailimageView.setImageURI(it)
 
             val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), it)
-
 
             model.uploadImage(bitmap, currentrecipe)
 

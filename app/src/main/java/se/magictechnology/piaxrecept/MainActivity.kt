@@ -8,6 +8,21 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
+
+/*
+
+BUGG:
+------Klicka igenom recipe detail på recept i listan bakom
+Vid nytt recept välja bild innan spara ger krasch
+Gå in på recept utan bild visar gammal bild från tidigare valt recept
+
+FIX:
+-------Skala ner bild innan uppladdning
+
+
+ */
+
+
 class MainActivity : AppCompatActivity() {
 
 

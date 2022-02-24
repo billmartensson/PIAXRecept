@@ -1,6 +1,7 @@
 package se.magictechnology.piaxrecept
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.AuthResult
@@ -32,6 +33,10 @@ class RecipeViewModel : ViewModel() {
 
     val loginStatus: MutableLiveData<LoginResult> by lazy {
         MutableLiveData<LoginResult>()
+    }
+
+    val imageResult: MutableLiveData<Bitmap> by lazy {
+        MutableLiveData<Bitmap>()
     }
 
     fun checkLogin()
@@ -135,21 +140,68 @@ class RecipeViewModel : ViewModel() {
 
     fun uploadImage(imgbitmap : Bitmap, imgrecipe : Recipe)
     {
+        val smallerbitmap = resizeBitmap(imgbitmap, 800)
+
         val storage = Firebase.storage.reference
 
         val recipeimagepath = storage.child("recipe").child(imgrecipe.fbid!!)
 
         val baos = ByteArrayOutputStream()
-        imgbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        smallerbitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val data = baos.toByteArray()
 
         var uploadTask = recipeimagepath.putBytes(data)
         uploadTask.addOnFailureListener {
             // Handle unsuccessful uploads
         }.addOnSuccessListener { taskSnapshot ->
-            // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-            // ...
-            //requireActivity().supportFragmentManager.popBackStack()
+            imageResult.value = smallerbitmap
+        }
+    }
+
+    fun downloadImage(imgrecipe : Recipe)
+    {
+        if(imgrecipe.fbid == null)
+        {
+            return
+        }
+
+        var imgRef = Firebase.storage.reference.child("recipe").child(imgrecipe.fbid!!)
+
+        val ONE_MEGABYTE: Long = 1024 * 1024
+        imgRef.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+            val imagebitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+
+            imageResult.value = imagebitmap
+        }.addOnFailureListener {
+            // Handle any errors
+        }
+    }
+
+
+    fun resizeBitmap(source: Bitmap, maxLength: Int): Bitmap {
+        try {
+            if (source.height >= source.width) {
+                if (source.height <= maxLength) { // if image height already smaller than the required height
+                    return source
+                }
+
+                val aspectRatio = source.width.toDouble() / source.height.toDouble()
+                val targetWidth = (maxLength * aspectRatio).toInt()
+                val result = Bitmap.createScaledBitmap(source, targetWidth, maxLength, false)
+                return result
+            } else {
+                if (source.width <= maxLength) { // if image width already smaller than the required width
+                    return source
+                }
+
+                val aspectRatio = source.height.toDouble() / source.width.toDouble()
+                val targetHeight = (maxLength * aspectRatio).toInt()
+
+                val result = Bitmap.createScaledBitmap(source, maxLength, targetHeight, false)
+                return result
+            }
+        } catch (e: Exception) {
+            return source
         }
     }
 }
