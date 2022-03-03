@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-// Detta är en ny funktion på gång
+// Ny funktion är klar!!!
 
 /*
 
