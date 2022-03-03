@@ -12,6 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import se.magictechnology.piaxrecept.databinding.FragmentLoginBinding
 import se.magictechnology.piaxrecept.databinding.FragmentStartBinding
 
+// Halvfärdig login
+
 class LoginFragment : Fragment() {
 
     private var _binding : FragmentLoginBinding? = null
