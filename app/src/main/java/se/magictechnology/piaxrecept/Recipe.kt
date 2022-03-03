@@ -7,7 +7,7 @@ class Recipe {
     var title = ""
     var description = ""
 
+    var taste = ""
     var howittaste = ""
 
-    var taste = ""
 }
