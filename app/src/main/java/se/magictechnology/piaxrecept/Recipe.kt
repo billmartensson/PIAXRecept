@@ -6,4 +6,6 @@ class Recipe {
     var fbid : String? = null
     var title = ""
     var description = ""
+
+    var howittaste = ""
 }
