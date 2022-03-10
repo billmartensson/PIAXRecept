@@ -1,6 +1,7 @@
 package se.magictechnology.piaxrecept
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import se.magictechnology.piaxrecept.databinding.FragmentStartBinding
 
 
-class StartFragment : Fragment() {
+class StartFragment : Fragment(), RecipeFrag {
 
     private var _binding : FragmentStartBinding? = null
     private val binding get() = _binding!!
@@ -72,6 +73,12 @@ class StartFragment : Fragment() {
         recdetailfrag.currentrecipe = rowrecipe
 
         requireActivity().supportFragmentManager.beginTransaction().add(R.id.fragContainer, recdetailfrag).addToBackStack(null).commit()
+    }
+
+    override fun doingBack(): Boolean {
+        Log.i("PIAXINTERFACE", "START GO BACK")
+
+        return true
     }
 
 }

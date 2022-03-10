@@ -110,3 +110,11 @@ class RecipeViewModel : ViewModel() {
 
 
 }
+
+class FBManager()
+{
+    fun loadstuff(recs: MutableLiveData<List<Recipe>>)
+    {
+
+    }
+}

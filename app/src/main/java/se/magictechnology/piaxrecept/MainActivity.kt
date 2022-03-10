@@ -2,6 +2,7 @@ package se.magictechnology.piaxrecept
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
@@ -39,14 +40,50 @@ by viewModel
 
  */
 
+interface Myblueprint {
 
-class MainActivity : AppCompatActivity() {
+    var somenumber : Int
 
+    fun dostuff()
 
+    fun domore() {
+        /////
+        Log.i("PIAXINTERFACE", "DOMORE")
+    }
+}
+
+interface RecipeFrag {
+
+    fun dummy() {
+
+    }
+
+    fun doingBack() : Boolean
+}
+
+class MainActivity : AppCompatActivity(), Myblueprint {
+    override var somenumber: Int = 7
+    /*
+    override var somenumber: Int
+        get() = TODO("Not yet implemented")
+        set(value) {}
+       */
+    override fun dostuff() {
+        TODO("Not yet implemented")
+    }
+
+    override fun domore() {
+        super.domore()
+        Log.i("PIAXINTERFACE", "DOMORE ACTIVITY")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        domore()
+
+
 
         val model : RecipeViewModel by viewModels()
 
@@ -68,6 +105,24 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+
+        Log.i("PIAXINTERFACE", supportFragmentManager.fragments.size.toString())
+
+        var lastfrag = supportFragmentManager.fragments.last() as RecipeFrag
+
+        if(lastfrag.doingBack() == true)
+        {
+            super.onBackPressed()
+        }
+
+
+    }
+
+
 }
 
 

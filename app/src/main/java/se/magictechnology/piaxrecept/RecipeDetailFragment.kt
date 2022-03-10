@@ -21,7 +21,7 @@ import com.google.firebase.storage.ktx.storage
 import se.magictechnology.piaxrecept.databinding.FragmentRecipeDetailBinding
 import se.magictechnology.piaxrecept.databinding.FragmentStartBinding
 
-class RecipeDetailFragment : Fragment() {
+class RecipeDetailFragment : Fragment(), RecipeFrag {
 
     private var _binding : FragmentRecipeDetailBinding? = null
     private val binding get() = _binding!!
@@ -103,5 +103,11 @@ class RecipeDetailFragment : Fragment() {
         super.onDestroyView()
 
         _binding = null
+    }
+
+    override fun doingBack(): Boolean {
+        Log.i("PIAXINTERFACE", "DETAIL GO BACK")
+
+        return true
     }
 }
