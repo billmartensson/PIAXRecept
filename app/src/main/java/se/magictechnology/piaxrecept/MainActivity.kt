@@ -98,6 +98,30 @@ class RecipeHelper {
 }
 
 class MainActivity : AppCompatActivity(), Myblueprint {
+
+    var happytext : String
+        get() {
+            return "Banan"
+        }
+        set(value) {
+            Log.i("PIAXINTERFACE", "NOW SETTING " + value)
+        }
+
+    var products = mutableListOf<String>()
+
+    var productsEmpty : Boolean
+        get() {
+            if(products.size > 0)
+            {
+                return false
+            }
+            return true
+        }
+        set(value) {
+
+        }
+
+
     override var somenumber: Int = 7
     /*
     override var somenumber: Int
@@ -118,6 +142,12 @@ class MainActivity : AppCompatActivity(), Myblueprint {
         setContentView(R.layout.activity_main)
 
         domore()
+
+        Log.i("PIAXINTERFACE", happytext)
+        happytext = "Apelsin"
+        Log.i("PIAXINTERFACE", happytext)
+
+
 
 
         var mintext = RecipeHelper().formatSomeText("Banan")
