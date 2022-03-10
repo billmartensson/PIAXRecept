@@ -56,6 +56,8 @@ class StartFragment : Fragment(), RecipeFrag {
         }
 
         binding.addRecipeButton.setOnClickListener {
+            RecipeHelper.doCounter()
+
             requireActivity().supportFragmentManager.beginTransaction().add(R.id.fragContainer, RecipeDetailFragment()).addToBackStack(null).commit()
 
         }

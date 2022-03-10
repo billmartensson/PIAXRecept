@@ -1,5 +1,6 @@
 package se.magictechnology.piaxrecept
 
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -51,6 +52,7 @@ class RecipeDetailFragment : Fragment(), RecipeFrag {
         model.imageResult.observe(viewLifecycleOwner, imageobserver)
 
         model.downloadImage(currentrecipe)
+
 
 
 
@@ -107,6 +109,27 @@ class RecipeDetailFragment : Fragment(), RecipeFrag {
 
     override fun doingBack(): Boolean {
         Log.i("PIAXINTERFACE", "DETAIL GO BACK")
+
+        RecipeHelper.doCounter()
+
+        if(currentrecipe.fbid != null)
+        {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Stänga?")
+            builder.setMessage("Är du säker på att du vill stänga receptet?")
+
+            builder.setPositiveButton("Ja") { dialog, which ->
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+
+            builder.setNegativeButton("Nej") { dialog, which ->
+
+            }
+
+            builder.show()
+
+            return false
+        }
 
         return true
     }

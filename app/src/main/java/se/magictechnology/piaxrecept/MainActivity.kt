@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -59,6 +60,41 @@ interface RecipeFrag {
     }
 
     fun doingBack() : Boolean
+
+    fun doAlotOfThings() {
+        ///////
+    }
+}
+
+fun String.prettyText() : String {
+    return "*** " + this + " ***"
+}
+
+fun Fragment.doFunnyStuff() {
+
+}
+
+class RecipeHelper {
+
+    fun formatSomeText(thetext : String) : String {
+        return "X: " + thetext
+    }
+
+    companion object {
+
+        var mycounter = 0
+
+        fun doCounter()
+        {
+            mycounter = mycounter + 1
+            Log.i("PIAXINTERFACE", "COUNTER IS: " + mycounter.toString())
+        }
+
+        fun fixSomeNumber(thenumber : Int) : Int {
+            return thenumber + 7
+        }
+    }
+
 }
 
 class MainActivity : AppCompatActivity(), Myblueprint {
@@ -84,6 +120,11 @@ class MainActivity : AppCompatActivity(), Myblueprint {
         domore()
 
 
+        var mintext = RecipeHelper().formatSomeText("Banan")
+        var minsiffra = RecipeHelper.fixSomeNumber(5)
+
+        var mytext = "abc"
+        Log.i("PIAXINTERFACE", mytext.prettyText())
 
         val model : RecipeViewModel by viewModels()
 
@@ -112,14 +153,17 @@ class MainActivity : AppCompatActivity(), Myblueprint {
 
         Log.i("PIAXINTERFACE", supportFragmentManager.fragments.size.toString())
 
-        var lastfrag = supportFragmentManager.fragments.last() as RecipeFrag
+        var lastfrag = supportFragmentManager.fragments.last() as? RecipeFrag
 
-        if(lastfrag.doingBack() == true)
+        if(lastfrag == null)
         {
             super.onBackPressed()
+        } else {
+            if(lastfrag.doingBack() == true)
+            {
+                super.onBackPressed()
+            }
         }
-
-
     }
 
 

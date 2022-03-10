@@ -58,6 +58,7 @@ class LoginFragment : Fragment() {
             }
         }
         model.loginStatus.observe(viewLifecycleOwner, loginobserver)
+
     }
 
     override fun onDestroyView() {
